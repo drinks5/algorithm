@@ -41,25 +41,41 @@ n == matrix[i].length
 
 
 class NumMatrix:
-
     def __init__(self, matrix: List[List[int]]):
-        pass
-
+        rows = len(matrix)
+        cols = 0 if not rows else len(matrix[0])
+        self.cum = [[0 for _ in range(cols + 1)] for _ in range(rows + 1)]
+        for i in range(rows):
+            for j in range(cols):
+                self.cum[i + 1][j + 1] = (
+                    self.cum[i][j + 1]
+                    + self.cum[i + 1][j]
+                    + matrix[i][j]
+                    - self.cum[i][j]
+                )
 
     def sumRegion(self, row1: int, col1: int, row2: int, col2: int) -> int:
-        pass
+        return (
+            self.cum[row2 + 1][col2 + 1]
+            - self.cum[row2 + 1][col1]
+            - self.cum[row1][col2 + 1]
+            + self.cum[row1][col1]
+        )
 
 
 class SolutionTestCase(unittest.TestCase):
     def test(self):
-        table = [
-            # {"input": [[0, 1]], "output": 2},
-            # {"input": [[0, 1, 0]], "output": 2},
-            {"input": [[0, 0, 1]], "output": 2},
-            # {"input": [[]], "output": 0},
+        data = [
+            [3, 0, 1, 4, 2],
+            [5, 6, 3, 2, 1],
+            [1, 2, 0, 1, 5],
+            [4, 1, 0, 1, 7],
+            [1, 0, 3, 0, 5],
         ]
-        for t in table:
-            self.assertEqual(Solution().findMaxLength(*t["input"]), t["output"])
+        obj = NumMatrix(data)
+        self.assertEqual(obj.sumRegion(2, 1, 4, 3), 8)
+        self.assertEqual(obj.sumRegion(1, 1, 2, 2), 11)
+        self.assertEqual(obj.sumRegion(1, 2, 2, 4), 12)
 
 
 if __name__ == "__main__":
