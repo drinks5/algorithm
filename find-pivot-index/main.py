@@ -42,8 +42,36 @@ from typing import List
 
 
 class Solution:
+    # def pivotIndex(self, nums: List[int]) -> int:
+    #     if not nums:
+    #         return -1
+    #     length = len(nums)
+    #     pre = [0 for _ in range(length + 1)]
+    #     for i in range(1, length + 1):
+    #         pre[i] = pre[i - 1] + nums[i - 1]
+    #     if (pre[-1] - pre[1]) == 0:
+    #         return 0
+    #     for i in range(length):
+    #         #  [2,-2,5,2,-2]
+    #         # [0,2,0,5,7,5]
+
+    #         #  [-2,5,-2]
+    #         # [0,-2,3,1]
+
+
+    #         #  [5, -1, 1]
+    #         # [0,5, 4, 5]
+    #         if pre[i] == (pre[-1] - pre[i + 1]):
+    #             return i
+    #     return -1
     def pivotIndex(self, nums: List[int]) -> int:
-        return 0
+        total = sum(nums)
+        count = 0
+        for i in range(len(nums)):
+            count += nums[i]
+            if (count - nums[i]) == (total - count):
+                return i
+        return -1
 
 
 class SolutionTestCase(unittest.TestCase):
@@ -51,9 +79,12 @@ class SolutionTestCase(unittest.TestCase):
         table = [
             {"input": [[1, 7, 3, 6, 5, 6]], "output": 3},
             {"input": [[1, 2, 3]], "output": -1},
-            {"input": [[2, -1, -1]], "output": 0},
+            {"input": [[2, 1, -1]], "output": 0},
+            {"input": [[-1, 1, 5]], "output": 2},
+            {"input": [[-1, -1, -1, 1, 1, 1]], "output": -1},
         ]
         for t in table:
+            print(f"input: {t['input']}\noutput: {t['output']}")
             self.assertEqual(Solution().pivotIndex(*t["input"]), t["output"])
 
 
