@@ -6,5 +6,6 @@ package addbinary
 func addBinary(a string, b string) string {
 	for _, x := range a {
 		println(x)
+	}
 	return ""
 }

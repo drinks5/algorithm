@@ -1,6 +1,4 @@
 #!/usr/bin/env python3
-from collections import defaultdict
-from email.policy import default
 import unittest
 from typing import List, Dict
 
@@ -47,7 +45,7 @@ class Solution:
         if length_t > length_s:
             return []
         matched: List[int] = []
-        a = ord('a')
+        a = ord("a")
         cum = total = 0
 
         for i in range(length_t):
@@ -57,7 +55,7 @@ class Solution:
             matched.append(0)
         for i in range(length_t, length_s):
             cum += ord(s[i]) + a
-            cum -= ord(s[i-length_t]) + a
+            cum -= ord(s[i - length_t]) + a
             if cum == total:
                 matched.append(i - length_t + 1)
         return matched
@@ -76,7 +74,6 @@ class SolutionTestCase(unittest.TestCase):
         ]
         for t in table:
             print(f"input: {t['input']}\noutput: {t['output']}")
-
             self.assertListEqual(Solution().findAnagrams(*t["input"]), t["output"])
 
 
