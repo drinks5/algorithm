@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
+from collections import defaultdict
+from email.policy import default
 import unittest
-from typing import List
+from typing import List, Dict
 
 """
 给定一个字符串 s 和一个非空字符串 p，找到 s 中所有是 p 的字母异位词的子串，返回这些子串的起始索引。
@@ -36,51 +38,41 @@ s: "abab" p: "ab"
 起始索引等于 1 的子串是 "ba", 它是 "ab" 的字母异位词。
 起始索引等于 2 的子串是 "ab", 它是 "ab" 的字母异位词。
 """
-from typing import List
 
 
 class Solution:
     def findAnagrams(self, s: str, t: str) -> List[int]:
-
-        needs: dict[str, int] = {}
-        windows: dict[str, int] = {}
-        match = 0
+        length_t = len(t)
+        length_s = len(s)
+        if length_t > length_s:
+            return []
         matched: List[int] = []
-        i = j = 0
-        nums = len(t)
-        for x in t:
-            if x not in needs:
-                needs[x] = 1
-            else:
-                needs[x] += 1
-        for x in s:
-            if x not in windows:
-                windows[x] = 0
+        a = ord('a')
+        cum = total = 0
 
-        while j < len(s):
-            right = s[j]
-            if right in needs:
-                windows[right] += 1
-                if windows[right] == needs[right]:
-                    match += 1
-            j += 1
-            while match == len(needs):
-                left = s[i]
-                if j - i == nums:
-                    matched.append(i)
-                if left in needs:
-                    windows[left] -= 1
-                    if windows[left] < needs[left]:
-                        match -= 1
-                i += 1
+        for i in range(length_t):
+            total += ord(t[i]) - a
+            cum += ord(s[i]) - a
+        if cum == total:
+            matched.append(0)
+        for i in range(length_t, length_s):
+            cum += ord(s[i]) + a
+            cum -= ord(s[i-length_t]) + a
+            if cum == total:
+                matched.append(i - length_t + 1)
         return matched
+
+
+def is_equal(windows: Dict[str, int], needs: Dict[str, int]) -> bool:
+    return all(needs[x] == windows[x] for x in needs)
 
 
 class SolutionTestCase(unittest.TestCase):
     def test(self):
         table = [
-            {"input": ["cbaebabacd", "abc"], "output": [0, 6]},
             {"input": ["abab", "ab"], "output": [0, 1, 2]},
+            {"input": ["cbaebabacd", "abc"], "output": [0, 6]},
+            {"input": ["af", "be"], "output": []},
         ]
         for t in table:
             print(f"input: {t['input']}\noutput: {t['output']}")

@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+import enum
+import unittest
+
 """
 Given a string s, find the length of the longest substring without repeating characters.
 
@@ -35,36 +38,48 @@ s consists of English letters, digits, symbols and spaces.
 """
 
 
-from typing import List
-
-
 class Solution:
     def lengthOfLongestSubstring(self, s: str) -> int:
-        if not s:
-            return 0
-        start = data = 0
-        indexs = {}
-        for i in range(len(s)):
-            x = s[i]
-            if x in indexs:
-                start = max(start, indexs[x] + 1)
-            indexs[x] = i
-            data = max(data, i - start + 1)
-        return data
+        count = i = 0
+        mp = {}
+        for j, c in enumerate(s):
+            if c in mp:
+                # 由于mp[s[j]]指向的是上一个重复的字符
+                # 所以需+1指向下一个不重复的字符
+                i = max(i, mp[c] + 1)
+            mp[c] = j
+            count = max(count, j - i + 1)
+        return count
+
+    # def lengthOfLongestSubstring(self, s: str) -> int:
+    #     start = data = 0
+    #     indexs = {}
+    #     for i in range(len(s)):
+    #         x = s[i]
+    #         if x in indexs:
+    #             start = max(start, indexs[x] + 1)
+    #         indexs[x] = i
+    #         data = max(data, i - start + 1)
+    #     return data
 
 
-def judge(left, right):
-    print(f"{left}: {left == right}")
+class SolutionTestCase(unittest.TestCase):
+    def test(self):
+        table = [
+            {"input": ["abcabcbb"], "output": 3},
+            {"input": ["bbbbb"], "output": 1},
+            {"input": ["pwwkew"], "output": 3},
+            {"input": [""], "output": 0},
+            {"input": ["abcabcbb"], "output": 3},
+            {"input": ["aabaab!bb"], "output": 3},
+        ]
+        for t in table:
+            print(f"input: {t['input']}\noutput: {t['output']}")
 
-
-def main():
-    judge(Solution().lengthOfLongestSubstring("abcabcbb"), 3)
-    judge(Solution().lengthOfLongestSubstring("bbbbb"), 1)
-    judge(Solution().lengthOfLongestSubstring("pwwkew"), 3)
-    judge(Solution().lengthOfLongestSubstring(""), 0)
-    judge(Solution().lengthOfLongestSubstring("abcabcbb"), 3)
-    judge(Solution().lengthOfLongestSubstring("aabaab!bb"), 3)
+            self.assertEqual(
+                Solution().lengthOfLongestSubstring(*t["input"]), t["output"]
+            )
 
 
 if __name__ == "__main__":
-    main()
+    unittest.main()
