@@ -55,6 +55,8 @@ class NumMatrix:
                 )
 
     def sumRegion(self, row1: int, col1: int, row2: int, col2: int) -> int:
+        # 因为前缀和数组 下标+1的原因
+        # row2, col2 全加一
         return (
             self.cum[row2 + 1][col2 + 1]
             - self.cum[row2 + 1][col1]

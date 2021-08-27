@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+import unittest
+from typing import List
+
 """
 给定一个字符串 s 和一个非空字符串 p，找到 s 中所有是 p 的字母异位词的子串，返回这些子串的起始索引。
 
@@ -73,17 +76,17 @@ class Solution:
         return matched
 
 
-def judge(left, right):
-    print(left)
-    print(left == right)
+class SolutionTestCase(unittest.TestCase):
+    def test(self):
+        table = [
+            {"input": ["cbaebabacd", "abc"], "output": [0, 6]},
+            {"input": ["abab", "ab"], "output": [0, 1, 2]},
+        ]
+        for t in table:
+            print(f"input: {t['input']}\noutput: {t['output']}")
 
-
-def main():
-    # judge(Solution().findAnagrams("abab", "ab"), [0, 1, 2])
-    # judge(Solution().findAnagrams("cbaebabacd", "abc"), [0, 6])
-    # judge(Solution().findAnagrams("baa", "aa"), [1])
-    judge(Solution().findAnagrams("abacbabc", "abc"), [1, 2, 3, 5])
+            self.assertListEqual(Solution().findAnagrams(*t["input"]), t["output"])
 
 
 if __name__ == "__main__":
-    main()
+    unittest.main()
