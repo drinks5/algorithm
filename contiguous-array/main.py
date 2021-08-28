@@ -31,6 +31,7 @@ class Solution:
         """
         无法用滑动窗口，因为非排序序列
         无法确定i,j的滑动方向
+        相同数量的成对字符串，那么其和相加为0
         """
         length = len(nums)
         ret = 0

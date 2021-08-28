@@ -65,6 +65,13 @@ class Solution:
     #             return i
     #     return -1
     def pivotIndex(self, nums: List[int]) -> int:
+        """
+         [1,2,3,2,1]
+        前缀和
+        [0,1,3,6,8,9]
+        sum[-1] = 9
+        sum[3] - a[3] = 9 - sum[3] = 3
+        """
         total = sum(nums)
         count = 0
         for i in range(len(nums)):
