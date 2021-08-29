@@ -1,0 +1,47 @@
+*.xml
+*.py[cod]
+*.icloud
+.mypy_cache
+.ropeproject
+Pipfile.lock
+fe
+patch
+*.jenkins
+# C extensions
+*.so
+#.env
+.pytest_cache
+
+# Packages
+*.egg
+*.egg-info
+.version
+eggs
+parts
+bin
+var
+sdist
+lib64
+staticfiles/
+*lock.json
+*.pyc
+
+# Installer logs
+pip-log.txt
+logs
+
+# Unit test / coverage reports
+.coverage
+.tox
+nosetests.xml
+
+# Mr Developer
+.mr.developer.cfg
+.project
+.pydevproject
+
+*.patch
+#*.db
+*.swp
+*.#*
+.history
