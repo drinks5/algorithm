@@ -1,6 +1,10 @@
 #!/usr/bin/env python
 import unittest
-from typing import Dict, List, Optional
+from typing import List, Optional
+import sys
+import pathlib
+sys.path.append(str(pathlib.Path(__file__).resolve().parents[1]))
+from datastructures import ListNode
 
 
 """
@@ -39,69 +43,6 @@ pos 的值为 -1 或者链表中的一个有效索引
 
 
 # Definition for singly-linked list.
-class ListNode:
-    def __init__(self, val=0, next: "ListNode" = None):
-        self.val = val
-        self.next = next
-
-    def append(self, val: int) -> "ListNode":
-        dummy = ListNode(-1, self)
-        head = dummy
-        node = ListNode(val)
-        while head.next:
-            head = head.next
-        head.next = node
-        return dummy.next
-
-    def delete(self, val):
-        dummy = ListNode(-1, self)
-        node = dummy
-        while node.next:
-            if node.next.val == val:
-                node.next = node.next.next
-                break
-            node = node.next
-        return dummy.next
-
-    def pop(self):
-        dummy = ListNode(-1, self)
-        node = dummy
-        while node.next:
-            if not node.next.next:
-                node.next = None
-                break
-            node = node.next
-        return dummy.next
-
-    def toList(self) -> List[int]:
-        if self.val is None:
-            return []
-        ret = [self.val]
-        node = self.next
-        while node:
-            ret.append(node.val)
-            node = node.next
-        return ret
-
-    @classmethod
-    def fromList(cls, data: List[int], cycle: int = -1) -> "ListNode":
-        dummy = ListNode(-1)
-        head = dummy
-        mp = {}
-        for i, _ in enumerate(data):
-            head.next = cls(_)
-            head = head.next
-            mp[i] = head
-        if cycle in mp:
-            head.next = mp[cycle]
-        return dummy.next
-
-    def __str__(self):
-        return f"val: {self.val}"
-
-    __repr__ = __str__
-
-
 def getNodeInLoop(head: ListNode) -> Optional[ListNode]:
     if not head or not head.next:
         return None
@@ -125,6 +66,10 @@ class Solution:
         return node.val
 
     def detectCycle(self, head: ListNode) -> ListNode:
+        """
+        1. 先使用快慢指针检测链表是否有环，如果有环，返回环中任意一个节点
+        2. 使用一个指针从头节点开始遍历，直至等于环中节点，计算
+        """
         in_loop = getNodeInLoop(head)
         if not in_loop:
             return None
@@ -133,6 +78,7 @@ class Solution:
         while current != in_loop:
             count += 1
             current = current.next
+        print(f"count:{count}")
         fast = head
         slow = head
         for _ in range(count):
@@ -146,7 +92,8 @@ class Solution:
 class SolutionTestCase(unittest.TestCase):
     def test(self):
         table = [
-            {"input": [[3, 2, 0, -4], 1], "output": 2},
+            # {"input": [[3, 2, 0, -4], 1], "output": 2},
+            {"input": [[3, 1, 0, -4, 5, 8, 6, 7, 9], 2], "output": 0},
             {"input": [[1], -1], "output": -1},
             {"input": [[1, 2], 0], "output": 1},
         ]

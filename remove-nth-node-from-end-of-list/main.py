@@ -1,6 +1,10 @@
 #!/usr/bin/env python
 import unittest
 from typing import List
+import sys
+import pathlib
+sys.path.append(str(pathlib.Path(__file__).resolve().parents[1]))
+from datastructures import ListNode
 
 
 """
@@ -35,60 +39,6 @@ from typing import List
 
 
 # Definition for singly-linked list.
-class ListNode:
-    def __init__(self, val=0, next: "ListNode" = None):
-        self.val = val
-        self.next = next
-
-    def append(self, val: int) -> "ListNode":
-        dummy = ListNode(-1, self)
-        head = dummy
-        node = ListNode(val)
-        while head.next:
-            head = head.next
-        head.next = node
-        return dummy.next
-
-    def delete(self, val):
-        dummy = ListNode(-1, self)
-        node = dummy
-        while node.next:
-            if node.next.val == val:
-                node.next = node.next.next
-                break
-            node = node.next
-        return dummy.next
-
-    def pop(self):
-        dummy = ListNode(-1, self)
-        node = dummy
-        while node.next:
-            if not node.next.next:
-                node.next = None
-                break
-            node = node.next
-        return dummy.next
-
-    def toList(self) -> List[int]:
-        if self.val is None:
-            return []
-        ret = [self.val]
-        node = self.next
-        while node:
-            ret.append(node.val)
-            node = node.next
-        return ret
-
-    @classmethod
-    def fromList(cls, data: List[int]) -> "ListNode":
-        dummy = ListNode(-1)
-        node = dummy
-        for _ in data:
-            node.next = cls(_)
-            node = node.next
-        return dummy.next
-
-
 class Solution:
     def call(self, data: List[int], k: int) -> List[int]:
         head = self.removeNthFromEnd(ListNode.fromList(data), k)
