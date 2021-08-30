@@ -1,6 +1,8 @@
 *.xml
 *.py[cod]
 *.icloud
+.vscode
+
 .mypy_cache
 .ropeproject
 Pipfile.lock
