@@ -1,4 +1,6 @@
 from typing import List, Optional
+
+
 class ListNode:
     def __init__(self, val=0, next: "ListNode" = None):
         self.val = val
@@ -70,8 +72,6 @@ class ListNode:
             if fast:
                 fast = fast.next
         return None
-
-
 
     def __str__(self):
         return f"val: {self.val}"

@@ -31,7 +31,15 @@ from typing import Dict, List
 
 class Solution:
     def dailyTemperatures(self, temperatures: List[int]) -> List[int]:
-        return []
+        stack = []
+        ret = [0 for _ in temperatures]
+        for i, v in enumerate(temperatures):
+            while stack and v > temperatures[stack[-1]]:
+                index = stack[-1]
+                stack.pop()
+                ret[index] = i - index
+            stack.append(i)
+        return ret
 
 
 class SolutionTestCase(unittest.TestCase):
