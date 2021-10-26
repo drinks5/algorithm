@@ -49,8 +49,9 @@ class SolutionTestCase(unittest.TestCase):
             {"input": [[3, 3, 7, 7, 10, 11, 11]], "output": 10},
         ]
         for t in table:
-            print(f"input: {t['input']}\noutput: {t['output']}")
-            self.assertEqual(Solution().singleNonDuplicate(*t["input"]), t["output"])
+            print(f"input: {t['input']}\noutput: {t['output']}\n")
+            ret = Solution().singleNonDuplicate(*t["input"])
+            self.assertEqual(ret, t["output"])
 
 
 if __name__ == "__main__":

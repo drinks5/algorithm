@@ -3,7 +3,6 @@ from typing import List
 
 import random
 
-from torch import rand
 
 
 class Solution:
