@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 import unittest
 from typing import List
+import random
 
 
 """
@@ -21,10 +22,20 @@ from typing import List
 
 class Solution:
     def findKthLargest(self, nums: List[int], k: int) -> int:
-        return 0
+        pivot = random.sample(nums, 1)[0]
+        larger = [n for n in nums if n > pivot]
+        smaller = [n for n in nums if n < pivot]
+        equal = [n for n in nums if n == pivot]
+
+        if len(larger) >= k:
+            return self.findKthLargest(larger, k)
+        elif len(larger) + len(equal) >= k:
+            return pivot
+        else:
+            return self.findKthLargest(smaller + equal, k - len(larger))
 
 
-table = [
+cases = [
     {
         "input": [[3, 2, 1, 5, 6, 4], 2],
         "output": 5,
@@ -38,7 +49,7 @@ table = [
 
 class SolutionTestCase(unittest.TestCase):
     def test(self):
-        for t in table:
+        for t in cases:
             print(f"input: {t['input']}\noutput: {t['output']}\n")
             ret = Solution().findKthLargest(*t["input"])
             self.assertEqual(ret, t["output"])

@@ -25,30 +25,31 @@ package maximumproductofwordlengths
 2 <= words.length <= 1000
 1 <= words[i].length <= 1000
 words[i] 仅包含小写字母
-
-来源：力扣（LeetCode）
-链接：https://leetcode-cn.com/problems/aseY1I
-著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 */
 
 func maxProduct(words []string) int {
-	store := make(map[rune]string)
+	lengthByBit := make(map[uint]int)
 	var length int
+	var bit uint
+	var ret int
 
 	for _, word := range words {
 		length = len(word)
+		bit = 0
 		for _, s := range word {
-			if value, ok := store[s]; !ok || len(value) < length {
-				store[s] = word
+			bit |= 1 << (s - 97)
+		}
+		if v := lengthByBit[bit]; length > v {
+			lengthByBit[bit] = length
+		}
+		for k, v := range lengthByBit {
+			if (k & bit) == 0 {
+				if prd := v * length; prd > ret {
+					ret = prd
+				}
 			}
 		}
 	}
-	for _, word := range words {
-		for _, s := range word {
-
-		}
-
-	}
-	return 0
+	return ret
 
 }

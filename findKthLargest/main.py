@@ -4,7 +4,6 @@ from typing import List
 import random
 
 
-
 class Solution:
     def findKthLargest(self, nums: List[int], k: int) -> int:
         pivot = random.sample(nums, 1)[0]
@@ -14,7 +13,7 @@ class Solution:
 
         if len(larger) >= k:
             return self.findKthLargest(larger, k)
-        elif len(larger) + len(equal) >= k:
+        elif len(smaller) + len(equal) >= k:
             return pivot
         else:
             return self.findKthLargest(smaller + equal, k - len(larger))

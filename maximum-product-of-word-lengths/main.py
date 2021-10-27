@@ -5,7 +5,8 @@ from typing import List
 
 
 """
-给定一个字符串数组 words，请计算当两个字符串 words[i] 和 words[j] 不包含相同字符时，它们长度的乘积的最大值。假设字符串中只包含英语的小写字母。如果没有不包含相同字符的一对字符串，返回 0。
+给定一个字符串数组 words，请计算当两个字符串 words[i] 和 words[j] 不包含相同字符时，
+它们长度的乘积的最大值。假设字符串中只包含英语的小写字母。如果没有不包含相同字符的一对字符串，返回 0。
 
 示例 1:
 
@@ -29,10 +30,6 @@ from typing import List
 2 <= words.length <= 1000
 1 <= words[i].length <= 1000
 words[i] 仅包含小写字母
-
-来源：力扣（LeetCode）
-链接：https://leetcode-cn.com/problems/aseY1I
-著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 
 
 解法

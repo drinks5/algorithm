@@ -21,7 +21,7 @@ func Test_relativeSortArray(t *testing.T) {
 	}
 	for i, tt := range tests {
 		t.Run(fmt.Sprintf("%d", i), func(t *testing.T) {
-			if got := relativeSortArray(tt.args.arr1, tt.args.arr2); assert.Equal(t, tt.want, got) {
+			if got := relativeSortArray(tt.args.arr1, tt.args.arr2); !assert.Equal(t, tt.want, got) {
 				t.Errorf("singleNonDuplicate() = %v, want %v", got, tt.want)
 			}
 		})
