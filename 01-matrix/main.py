@@ -20,13 +20,15 @@ https://leetcode.com/problems/01-matrix/
 """
 Dirs = ((-1, 0), (1, 0), (0, -1), (0, 1))
 
+
 class Solution:
     def updateMatrix(self, mat: List[List[int]]) -> List[List[int]]:
         rows = len(mat)
         if not rows:
             return []
         cols = len(mat[0])
-        dists = [[0] * cols for _ in range(rows)]
+        dists = [[0 for _ in range(cols)] for _ in range(rows)]
+        maxValue = rows * cols
         stack: List[Tuple[int, int]] = []
         for i in range(rows):
             for j in range(cols):
@@ -34,13 +36,17 @@ class Solution:
                     dists[i][j] = 0
                     stack.append((i, j))
                 else:
-                    dists[i][j] = -1
+                    dists[i][j] = maxValue
         while stack:
-            i, j= stack.pop()
-            dist = dists[i][j]
+            i, j = stack.pop()
+            dist = dists[i][j] + 1
             for d in Dirs:
-                r = i+
-        return []
+                r = i + d[0]
+                c = j + d[1]
+                if 0 <= r < rows and 0 <= c < cols and dists[r][c] > dist:
+                    dists[r][c] = dist
+                    stack.append((r, c))
+        return dists
 
 
 cases = [
