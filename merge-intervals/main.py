@@ -39,17 +39,17 @@ class Solution:
             i += 1
         return [x[1] for x in ans]
 
-    def merge1(self, intervals: List[List[int]]) -> List[List[int]]:
-        if not intervals:
-            return intervals
-        bitNums = []
-        for nums in intervals:
-            bit = 0
-            for x in range(nums[0], nums[1] + 1):
-                bit |= 1 << x
-            bitNums.append((bit, nums))
-        length = len(nums)
-        for i in range(length):
+    # def merge1(self, intervals: List[List[int]]) -> List[List[int]]:
+    #     if not intervals:
+    #         return intervals
+    #     bitNums = []
+    #     for nums in intervals:
+    #         bit = 0
+    #         for x in range(nums[0], nums[1] + 1):
+    #             bit |= 1 << x
+    #         bitNums.append((bit, nums))
+    #     length = len(nums)
+    #     for i in range(length):
 
 
 class SolutionTestCase(unittest.TestCase):
