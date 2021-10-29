@@ -92,9 +92,8 @@ class LRUCache:
             self.move2Tail(node, value)
             return
         if len(self.mp) == self.capacity:
-            toBeDeleted = self.head.next
-            self.deleteNode(toBeDeleted)
-            self.mp.pop(toBeDeleted.key)
+            self.mp.pop(self.head.next.key)
+            self.deleteNode(self.head.next)
         node = ListNode(key, value)
         self.insert2Tail(node)
         self.mp[key] = node
