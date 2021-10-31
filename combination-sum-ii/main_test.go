@@ -8,7 +8,7 @@ import (
 	"testing"
 )
 
-func Test_findKthLargest(t *testing.T) {
+func Test_main(t *testing.T) {
 	type args struct {
 		arr []int
 		k   int

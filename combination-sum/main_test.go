@@ -8,7 +8,7 @@ import (
 	"testing"
 )
 
-func Test_findKthLargest(t *testing.T) {
+func Test_main(t *testing.T) {
 	type args struct {
 		arr []int
 		k   int
@@ -26,7 +26,7 @@ func Test_findKthLargest(t *testing.T) {
 	for i, tt := range tests {
 		t.Run(fmt.Sprintf("%d", i), func(t *testing.T) {
 			if got := combinationSum(tt.args.arr, tt.args.k); !assert.Equal(t, tt.want, got) {
-				t.Errorf("singleNonDuplicate() = %v, want %v", got, tt.want)
+				t.Errorf("main() = %v, want %v", got, tt.want)
 			}
 		})
 	}

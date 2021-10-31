@@ -1,17 +1,20 @@
-package combinationSum
+package permutations
 
-func combinationSum(candidates []int, target int) [][]int {
-	return helper(candidates, 0, []int{}, [][]int{}, target)
+func permute(nums []int) [][]int {
+	return helper(nums, len(nums), 0, [][]int{})
 }
 
-func helper(nums []int, index int, subset []int, ret [][]int, target int) [][]int {
-	if target == 0 {
-		ret = append(ret, subset)
-	} else if target > 0 && index < len(nums) {
-		ret = helper(nums, index+1, subset, ret, target)
-		subset = append(subset, nums[index])
-		ret = helper(nums, index, subset, ret, target-nums[index])
+func helper(nums []int, length, i int, ret [][]int) [][]int {
+	if i == length {
+		dst := make([]int, length)
+		copy(dst, nums)
+		ret = append(ret, dst)
+	} else if i < length {
+		for j := i; j < length; j++ {
+			nums[i], nums[j] = nums[j], nums[i]
+			ret = helper(nums, length, i+1, ret)
+			nums[i], nums[j] = nums[j], nums[i]
+		}
 	}
 	return ret
-
 }
