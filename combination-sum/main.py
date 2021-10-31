@@ -39,7 +39,24 @@ class Solution:
     def combinationSum(
         self, candidates: List[int], target: int
     ) -> List[List[int]]:
-        return [[7], [2, 2, 3]]
+        return helper(candidates, 0, target, [], [])
+
+
+def helper(
+    nums: List[int],
+    index: int,
+    target: int,
+    subset: List[int],
+    ret: List[List[int]],
+) -> List[List[int]]:
+    if target == 0:
+        ret.append(list(subset))
+    elif target > 0 and index < len(nums):
+        ret = helper(nums, index + 1, target, subset, ret)
+        subset.append(nums[index])
+        ret = helper(nums, index, target - nums[index], subset, ret)
+        subset.pop()
+    return ret
 
 
 cases = [
