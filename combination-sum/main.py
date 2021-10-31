@@ -36,7 +36,9 @@ candidates 中的数字可以无限制重复被选取。如果至少一个所�
 
 
 class Solution:
-    def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
+    def combinationSum(
+        self, candidates: List[int], target: int
+    ) -> List[List[int]]:
         return [[7], [2, 2, 3]]
 
 
@@ -45,6 +47,10 @@ cases = [
         "input": [[2, 3, 6, 7], 7],
         "output": [[7], [2, 2, 3]],
     },
+    {"input": [[2, 3, 5], 8], "output": [[2, 2, 2, 2], [2, 3, 3], [3, 5]]},
+    {"input": [[2], 1], "output": []},
+    {"input": [[1], 1], "output": [[1]]},
+    {"input": [[1], 2], "output": [[1, 1]]},
 ]
 
 
