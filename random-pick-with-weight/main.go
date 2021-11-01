@@ -4,11 +4,12 @@ type Solution struct {
 }
 
 func Constructor(w []int) Solution {
+	return Solution{}
 
 }
 
 func (this *Solution) PickIndex() int {
-
+	return 0
 }
 
 /**

@@ -27,12 +27,12 @@ nums 中，除某个元素仅出现 一次 外，其余每个元素都恰出现 
 
 */
 func singleNumber(nums []int) int {
-	one := 0
-	two := 0
+	a := 0
+	b := 0
 
-	for n := range nums {
-		one = (two ^ n) & ~one
-		two = (one ^ n) & ~two
+	for _, n := range nums {
+		a = (a ^ n) & ^b
+		b = (b ^ n) & ^a
 	}
-	return one
+	return a
 }

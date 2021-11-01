@@ -14,27 +14,29 @@ from typing import List
 
 输入：n = 1
 输出：["()"]
+[-3,-2,-1,1,2,3]
+[-3,-2,2,-1,1,3]
 """
 
 
 class Solution:
     def generateParenthesis(self, n: int) -> List[str]:
-        return []
+        return helper(n, n, "", [])
 
 
 def helper(
-    nums: List[int],
-    length: int,
-    i: int,
-    ret: List[List[int]],
-) -> List[List[int]]:
-    if length == i:
-        ret.append(list(nums))
-    elif i < length:
-        for j in range(i, length):
-            nums[i], nums[j] = nums[j], nums[i]
-            ret = helper(nums, length, i + 1, ret)
-            nums[i], nums[j] = nums[j], nums[i]
+    left: int,
+    right: int,
+    parentThesis: str,
+    ret: List[str],
+) -> List[str]:
+    if not left and not right:
+        ret.append(parentThesis)
+        return ret
+    if left > 0:
+        ret = helper(left - 1, right, parentThesis + "(", ret)
+    if left < right:
+        ret = helper(left, right - 1, parentThesis + ")", ret)
     return ret
 
 

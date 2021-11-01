@@ -33,6 +33,7 @@ def helper(
     ret: List[List[int]],
 ) -> List[List[int]]:
     if i == len(nums):
+        ret.append(list(subset))
     elif i < len(nums) and target > 0:
         ret = helper(nums, getNext(nums, i), target, subset, ret)
         subset.append(nums[i])

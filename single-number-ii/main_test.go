@@ -1,19 +1,27 @@
 package singlenumberii
 
-import "testing"
+import (
+	"fmt"
+	"testing"
 
-func TestAddBinary(t *testing.T) {
-	table := []struct {
-		in  []int
-		out int
-	}{
-		{[]int{11, 10, 10, 10, 11, 11, 101}, 101},
+	"github.com/stretchr/testify/assert"
+)
+
+func Test_main(t *testing.T) {
+	type args struct {
+		arr []int
 	}
-	for _, tt := range table {
-		t.Run("ok", func(t *testing.T) {
-			s := singleNumber(tt.in)
-			if s != tt.out {
-				t.Errorf("got %d, want %d", s, tt.out)
+	tests := []struct {
+		args args
+		want int
+	}{
+		{args{[]int{2, 2, 3, 2}}, 3},
+		{args{[]int{0, 1, 0, 1, 0, 1, 100}}, 100},
+	}
+	for i, tt := range tests {
+		t.Run(fmt.Sprintf("%d", i), func(t *testing.T) {
+			if got := singleNumber(tt.args.arr); !assert.Equal(t, tt.want, got) {
+				t.Errorf("main() = %v, want %v", got, tt.want)
 			}
 		})
 	}
